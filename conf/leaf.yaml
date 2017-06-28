@@ -1,0 +1,47 @@
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+########### These all have default values as shown
+########### Additional configuration goes into leaf.yaml
+
+java.library.path: "/usr/local/lib:/opt/local/lib:/usr/lib"
+
+
+leaf.local.dir: "leaf_local"
+leaf.rpc.port: 2182
+leaf.zookeeper.servers:
+    - "testnode1.bitauto.dmp"
+    - "testnode2.bitauto.dmp"
+    - "testnode3.bitauto.dmp"
+leaf.zookeeper.port: 2181
+leaf.zookeeper.root: "/leaf"
+leaf.zookeeper.forever: "/server-forever"
+leaf.zookeeper.ephemeral: "/server-ephemeral"
+leaf.heartbeat.interval: 3000
+leaf.average.timestamp.threshold: 5000
+leaf.zookeeper.session.timeout: 20000
+leaf.zookeeper.connection.timeout: 15000
+leaf.zookeeper.retry.times: 20
+leaf.zookeeper.retry.interval: 1000
+leaf.zookeeper.retry.intervalceiling.millis: 30000
+leaf.childopts: "-Xms1024m -Xmx1024m -Xmn512m -XX:PermSize=128m -XX:+UseConcMarkSweepGC -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=70 -XX:CMSFullGCsBeforeCompaction=5 -XX:+HeapDumpOnOutOfMemoryError -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=100M -XX:+UseCMSCompactAtFullCollection -XX:CMSMaxAbortablePrecleanTime=5000"
+
+
+
+
+
+
