@@ -121,9 +121,6 @@ public class Utils {
 
 	public static void halt_process(int val, String msg) {
 		LOG.info("Halting process: " + msg);
-		if(true)
-			return;
-
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
