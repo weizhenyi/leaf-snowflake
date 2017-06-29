@@ -6,8 +6,8 @@ Last Modified: 2017-06-28
 
 Introduction
 ============
-    Leaf-snowflake is a distributed ID maker coded by weizhenyi.
-    Based on http://tech.meituan.com/MT_Leaf.html ,leaf-snowflake.
+    Leaf-snowflake is a distributed ID maker.
+    Based on http://tech.meituan.com/MT_Leaf.html leaf-snowflake.
 
 Steps:
 ============
@@ -26,4 +26,4 @@ Github: https://github.com/weizhenyi
 
 # Getting help
 Email: zhenyiwei1986@126.com
-QQ:63215516
+QQ:632155186
