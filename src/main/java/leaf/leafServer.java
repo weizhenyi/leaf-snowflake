@@ -4,7 +4,6 @@ package leaf;
  * Created by weizhenyi on 2017/6/26.
  */
 import java.io.File;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +14,6 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import utils.*;
-import utils.Utils;
 import zookeeper.DistributedClusterStat;
 import rpc.rpcServer;
 import rpc.rpcClient;
@@ -30,6 +28,8 @@ public class leafServer {
 	private int incrementThreshHold = 0x00000FFF - 10 ;
 	private Object lock = new Object();
 	private volatile Integer numberServerId = null;
+	private volatile long lastTimeMs = 0L;
+
 
 	private  int increment()
 	{
@@ -69,11 +69,25 @@ public class leafServer {
 		}
 		return numberServerId;
 	}
-
-	public  String makeFinalId()
+	// not so efficient,// FIXME: 2017/6/29
+	public synchronized String makeFinalId()
 	{
 		long id = 0L;
 		long base = 0x7FFFFFFFFFFFFFFFL;
+		long currentTimeMs = Utils.currentTimeMs();
+		if ( lastTimeMs == currentTimeMs )
+		{
+			if (increment.get() >= incrementThreshHold)
+			{
+				Utils.sleepMs(1L);
+			}
+		}
+		else if (lastTimeMs > currentTimeMs)
+		{
+			LOG.error("the system clock was backed , stop service! ");
+			stop();
+			Utils.halt_process(-1,"the system clock was backed , stop service! ");
+		}
 		long timeStamp = (Utils.currentTimeMs() & 0x0001FFFFFFFFFFL) << 22 ;
 		timeStamp = base & timeStamp;
 		id += timeStamp;
@@ -81,6 +95,7 @@ public class leafServer {
 		id += (serverNumberId << 12);
 		int increment = increment();
 		id += (long)increment;
+		lastTimeMs = Utils.currentTimeMs();
 		return Long.valueOf(id).toString();
 	}
 
@@ -280,6 +295,18 @@ public class leafServer {
 
 		startHeartBeatThread();
 	}
+
+	private void addShutdownHook()
+	{
+		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+			@Override
+			public void run() {
+				leafServer.this.stop();
+				LOG.info("finally stop the leafServer......");
+			}
+		}));
+	}
+
 	private String makeServerNode( String path, byte[] data)
 	{
 		try {
@@ -302,6 +329,7 @@ public class leafServer {
 		LOG.info("the server configurations : " + conf.toString());
 		leafServer server = new leafServer(conf);
 		try {
+			server.addShutdownHook();
 			server.launchServer(conf);
 			server.startRPC();
 		}

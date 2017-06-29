@@ -116,7 +116,8 @@ public class Utils {
 	}
 
 	public static void haltProcess(int val) {
-		 Runtime.getRuntime().halt(val);
+		 //Runtime.getRuntime().halt(val);
+		System.exit(val);
 	}
 
 	public static void halt_process(int val, String msg) {
