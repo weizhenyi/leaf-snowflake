@@ -201,8 +201,8 @@ public class leafServer {
 		LOG.info("Current localDir: " + localDir);
 		String pidPath = Utils.createPid(conf);
 		LOG.info("Current leafServer pidPath: " + pidPath);
-		FileUtils.forceMkdir(new File("log"));
-		LOG.info("Current logDir :" + localDir + Config.FILE_SEPERATEOR + "log");
+		FileUtils.forceMkdir(new File("logs"));
+		LOG.info("Current logDir :" + localDir + Config.FILE_SEPERATEOR + "logs");
 
 		FileUtils.forceMkdir(new File(Utils.localDataPath(conf)));
 
