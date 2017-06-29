@@ -164,6 +164,7 @@ public class leafServer {
 		if (zkClient != null)
 		{
 			zkClient.close();
+			zkClient = null;
 		}
 		Utils.sleepMs(5000);
 	}
