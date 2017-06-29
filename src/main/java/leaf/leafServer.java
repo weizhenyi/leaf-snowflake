@@ -21,7 +21,7 @@ import rpc.rpcClient;
 public class leafServer {
 	private static final Logger LOG = LoggerFactory.getLogger(leafServer.class);
 	private DistributedClusterStat zkClient;
-	private Map conf = null;
+	private final Map conf ;
 	private String serverNodePath = null;
 	private AtomicBoolean active = new AtomicBoolean(false);
 	private AtomicInteger increment = new AtomicInteger(0);
@@ -131,10 +131,10 @@ public class leafServer {
 	}
 
 
-	public leafServer(Map conf )
+	public leafServer(final Map conf )
 	{
+		this.conf = conf;
 		try {
-			this.conf = conf;
 			zkClient = new DistributedClusterStat(conf);
 		} catch (Exception e)
 		{
