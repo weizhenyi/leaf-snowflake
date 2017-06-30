@@ -31,6 +31,7 @@ Commond line tools
 Throughput capacity test
 ============
 One test client (machine of hadoop cluster) with 3 threads,each send 1000000 requests to one of 3 test servers(machines of hadoop cluster)
+
 Cost 300 seconds with absolutely correct Ids generated.
 
 
