@@ -43,7 +43,7 @@ def get_config_opts():
     return "-Dleaf.options=" + (','.join(CONFIG_OPTS)).replace(' ', "%%%%")
 
 def get_client_childopts():
-    ret = (" -Dleaf.root.logger=INFO,stdout " +
+    ret = (" -Dleaf.root.logger=WARN,stdout " +
            " -Dlog4j.configuration=File:" + LEAF_DIR +
            "/conf/client_log4j.properties")
     if CLIENT_CONF_FILE != "":
