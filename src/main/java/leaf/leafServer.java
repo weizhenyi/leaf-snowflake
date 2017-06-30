@@ -175,7 +175,7 @@ public class leafServer {
 			total = total.add(BigInteger.valueOf(v));
 		}
 		long average = total.divide(BigInteger.valueOf(timestamps.size())).longValue();
-		if (Math.abs(average - Utils.currentTimeMs()) > (long)conf.get(Config.LEAF_AVERAGE_TIMESTAMP_THRESHOLD))
+		if (Math.abs(average - Utils.currentTimeMs()) > (Integer)conf.get(Config.LEAF_AVERAGE_TIMESTAMP_THRESHOLD))
 		{
 			LOG.error("current server timestamp :" + Utils.formatTimeStampMs(Utils.currentTimeMs())
 					+ " does not match the peers average timestamp : "
@@ -191,8 +191,8 @@ public class leafServer {
 		LOG.info("Current localDir: " + localDir);
 		String pidPath = Utils.createPid(conf);
 		LOG.info("Current leafServer pidPath: " + pidPath);
-		FileUtils.forceMkdir(new File("logs"));
-		LOG.info("Current logDir :" + localDir + Config.FILE_SEPERATEOR + "logs");
+		FileUtils.forceMkdir(new File(conf.get(Config.LEAF_HOME) + Config.FILE_SEPERATEOR + "logs"));
+		LOG.info("Current logDir :" + conf.get(Config.LEAF_HOME) + Config.FILE_SEPERATEOR + "logs");
 
 		FileUtils.forceMkdir(new File(Utils.localDataPath(conf)));
 
@@ -316,7 +316,12 @@ public class leafServer {
 	}
 	public static void main(String[] args) throws Exception
 	{
+		String leaf_home = System.getProperty(Config.LEAF_HOME);
 		Map conf = Utils.readLeafConfig();
+		if (leaf_home != null)
+		{
+			conf.put(Config.LEAF_HOME ,leaf_home);
+		}
 		LOG.info("the server configurations : " + conf.toString());
 		leafServer server = new leafServer(conf);
 		try {

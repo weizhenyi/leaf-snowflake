@@ -41,32 +41,47 @@ public class Zookeeper {
 				if (e.getType().equals(CuratorEventType.WATCHED)) //WATCHED事件对应着CuratorFrame的watched()方法
 				{
 					WatchedEvent event = e.getWatchedEvent();//收到了zk事件
-					LOG.info("get event: " + event + " eventType: " + event.getType() + " eventPath: "+event.getPath() );
-					watcher.execute(event.getState(),event.getType(),event.getPath());
+					if (event != null)
+					{
+						LOG.info("get event: " + event + " eventType: " + event.getType() + " eventPath: "+event.getPath() );
+						watcher.execute(event.getState(),event.getType(),event.getPath());
+					}
 				}
 				if (e.getType().equals(CuratorEventType.CHILDREN)) //对应着getChildren()方法
 				{
 					WatchedEvent event = e.getWatchedEvent();//收到了zk事件
-					LOG.info("get event: " + event + " eventType: " + event.getType() + " eventPath: "+event.getPath()  + "----e.getType().equals(CuratorEventType.CHILDREN" );
-					watcher.execute(event.getState(),event.getType(),event.getPath());
+					if (event != null)
+					{
+						LOG.info("get event: " + event + " eventType: " + event.getType() + " eventPath: "+event.getPath()  + "----e.getType().equals(CuratorEventType.CHILDREN" );
+						watcher.execute(event.getState(),event.getType(),event.getPath());
+					}
 				}
 				if (e.getType().equals(CuratorEventType.CLOSING)) //对应着 close（）方法
 				{
 					WatchedEvent event = e.getWatchedEvent();//收到了zk事件
-					LOG.info("get event: " + event + " eventType: " + event.getType() + " eventPath: "+event.getPath()  + "----e.getType().equals(CuratorEventType.CLOSING" );
-					watcher.execute(event.getState(),event.getType(),event.getPath());
+					if (event != null)
+					{
+						LOG.info("get event: " + event + " eventType: " + event.getType() + " eventPath: "+event.getPath()  + "----e.getType().equals(CuratorEventType.CLOSING" );
+						watcher.execute(event.getState(),event.getType(),event.getPath());
+					}
 				}
 				if(e.getType().equals(CuratorEventType.GET_DATA))
 				{
 					WatchedEvent event = e.getWatchedEvent();//收到了zk事件
-					LOG.info("get event: " + event + " eventType: " + event.getType() + " eventPath: "+event.getPath()  + "----e.getType().equals(CuratorEventType.GET_DATA)" );
-					watcher.execute(event.getState(),event.getType(),event.getPath());
+					if (event != null)
+					{
+						LOG.info("get event: " + event + " eventType: " + event.getType() + " eventPath: "+event.getPath()  + "----e.getType().equals(CuratorEventType.GET_DATA)" );
+						watcher.execute(event.getState(),event.getType(),event.getPath());
+					}
 				}
 				if(e.getType().equals(CuratorEventType.SET_DATA))
 				{
 					WatchedEvent event = e.getWatchedEvent();//收到了zk事件
-					LOG.info("get event: " + event + " eventType: " + event.getType() + " eventPath: "+event.getPath()  + "----e.getType().equals(CuratorEventType.SET_DATA)" );
-					watcher.execute(event.getState(),event.getType(),event.getPath());
+					if (event != null)
+					{
+						LOG.info("get event: " + event + " eventType: " + event.getType() + " eventPath: "+event.getPath()  + "----e.getType().equals(CuratorEventType.SET_DATA)" );
+						watcher.execute(event.getState(),event.getType(),event.getPath());
+					}
 				}
 			}
 		});

@@ -59,6 +59,7 @@ public class Config {
 	public static final String LEAF_AVERAGE_TIMESTAMP_THRESHOLD = "leaf.average.timestamp.threshold";
 	public static final Object LEAF_AVERAGE_TIMESTAMP_THRESHOLD_SCHEMA = ConfigValidation.IntegerValidator;
 
+
 	/**
 	 * The connection timeout for clients to ZooKeeper.
 	 */
@@ -90,6 +91,7 @@ public class Config {
 	public static final Object LEAF_ZOOKEEPER_RETRY_TIMES_SCHEMA = ConfigValidation.IntegerValidator;
 	// not use for version 0.1
 	public static final String CACHE_TIMEOUT_LIST = "cache.timeout.list";
+	public static final String LEAF_HOME = "leaf.home";
 
 
 }

@@ -511,7 +511,7 @@ public class Utils {
 
 	public static String localDataPath(Map conf)
 	{
-		return String.valueOf(conf.get(Config.LEAF_LOCAL_DIR)) + Config.FILE_SEPERATEOR + "data";
+		return conf.get(Config.LEAF_HOME) + Config.FILE_SEPERATEOR + String.valueOf(conf.get(Config.LEAF_LOCAL_DIR)) + Config.FILE_SEPERATEOR + "data";
 	}
 
 	public static String extractServerId( String str)

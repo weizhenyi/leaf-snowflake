@@ -132,7 +132,7 @@ public class PathUtils {
 
 	public static String leafLocalDir(Map conf) throws IOException
 	{
-		String ret = String.valueOf(conf.get(Config.LEAF_LOCAL_DIR));
+		String ret = conf.get(Config.LEAF_HOME) + Config.FILE_SEPERATEOR + String.valueOf(conf.get(Config.LEAF_LOCAL_DIR));
 		try {
 			FileUtils.forceMkdir(new File(ret));
 		} catch (IOException e)
