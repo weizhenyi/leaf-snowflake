@@ -28,6 +28,12 @@ Commond line tools
    /bin/leaf.py zktool read /leaf/server-forever/172.21.0.190:2182-0000000008
 
 
+Throughput capacity test
+============
+One test client (machine of hadoop cluster) with 3 threads,each send 1000000 requests to one of 3 test servers(machines of hadoop cluster)
+Cost 300 seconds with absolutely correct Ids generated.
+
+
 # Author
 weizhenyi
 Github: https://github.com/weizhenyi
