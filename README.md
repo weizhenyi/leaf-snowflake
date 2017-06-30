@@ -19,10 +19,10 @@ Steps:
 
 Commond line tools
 ============
-1.List the content of a znode dir:
+  1.List the content of a znode dir:
   /bin/leaf.py zktool list /leaf2/server-forever
 
-2.Read the content of a znode:
+  2.Read the content of a znode:
   /bin/leaf.py zktool read /leaf2/server-forever/172.21.0.190:2182-0000000008
 
 
