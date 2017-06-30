@@ -24,27 +24,12 @@ public class leafServer {
 	private final Map conf ;
 	private String serverNodePath = null;
 	private AtomicBoolean active = new AtomicBoolean(false);
-	private AtomicInteger increment = new AtomicInteger(0);
-	private int incrementThreshHold = 0x00000FFF - 10 ;
-	private Object lock = new Object();
+	private volatile int increment = 0;
+	private int incrementThreshHold = 0x00000FFF - 2 ;
 	private volatile Integer numberServerId = null;
 	private volatile long lastTimeMs = 0L;
 
 
-	private  int increment()
-	{
-		if( increment.get() >= incrementThreshHold )
-		{
-			synchronized (lock)
-			{
-				if( increment.get() >= incrementThreshHold )
-				{
-					increment.set(0);
-				}
-			}
-		}
-		return increment.getAndIncrement();
-	}
 
 	private  Integer serverNumberid( )
 	{
@@ -77,8 +62,9 @@ public class leafServer {
 		long currentTimeMs = Utils.currentTimeMs();
 		if ( lastTimeMs == currentTimeMs )
 		{
-			if (increment.get() >= incrementThreshHold)
+			if (increment >= incrementThreshHold)
 			{
+				increment = 0;
 				Utils.sleepMs(1L);
 			}
 		}
@@ -88,13 +74,17 @@ public class leafServer {
 			stop();
 			Utils.halt_process(-1,"the system clock was backed , stop service! ");
 		}
+		else //currentTimeMs > lastTimeMs
+		{
+			increment = 0;
+		}
 		long timeStamp = (Utils.currentTimeMs() & 0x0001FFFFFFFFFFL) << 22 ;
 		timeStamp = base & timeStamp;
 		id += timeStamp;
 		long serverNumberId = (long)serverNumberid();
 		id += (serverNumberId << 12);
-		int increment = increment();
-		id += (long)increment;
+		int incr = increment++;
+		id += (long)incr;
 		lastTimeMs = Utils.currentTimeMs();
 		return Long.valueOf(id).toString();
 	}
