@@ -65,10 +65,10 @@ public class rpcClient {
 
 		for(int i = 0; i< 1000000; i++)
 		{
-			String id = client.getID("");
+			client.getID("");
 			if (i % 100000 == 0)
 			{
-				System.out.println(Thread.currentThread().getName() + " " + id);
+				System.out.println(Thread.currentThread().getName() + " " + client.getID(""));
 			}
 			//chm.put(client.getID(""),Thread.currentThread().getName());
 			//client.getID("");

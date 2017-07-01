@@ -70,22 +70,55 @@ public class leafServer {
 		}
 		else if (lastTimeMs > currentTimeMs)
 		{
-			LOG.error("the system clock was backed , stop service! ");
-			stop();
-			Utils.halt_process(-1,"the system clock was backed , stop service! ");
+			long offset = lastTimeMs - currentTimeMs;
+			if (offset <= 5) //时间偏差小于5ms，则等待两倍时间
+			{
+				Utils.sleepMs(offset << 1);
+				currentTimeMs = Utils.currentTimeMs();
+				if (currentTimeMs < lastTimeMs) //还是小于 抛出异常并上报
+				{
+					LOG.error("the system clock was backed about : "  + offset + "ms, and can not recover with retry, stop service! ");
+					stop();
+					Utils.halt_process(-1,"the system clock was backed about : "  + offset + "ms, and can not recover with retry, stop service! ");
+				}
+				else if (currentTimeMs == lastTimeMs)//如果等待之后时间戳等于上一次ID的时间戳
+				{
+					if(increment >= incrementThreshHold) //时间戳用完了,重新等待1ms
+					{
+						increment = 0;
+						Utils.sleepMs(1L);
+					}
+				}
+				else //currentTimeMs > lastTimeMs 等待之后时间戳反而超过了上一次ID的时间戳
+				{
+					increment = 0;
+				}
+			}
+			else
+			{
+				LOG.error("the system clock was backed about : "  + offset + "ms, stop service! ");
+				stop();
+				Utils.halt_process(-1,"the system clock was backed about : "  + offset + "ms, stop service! ");
+			}
+
 		}
 		else //currentTimeMs > lastTimeMs
 		{
 			increment = 0;
 		}
-		long timeStamp = (Utils.currentTimeMs() & 0x0001FFFFFFFFFFL) << 22 ;
+		currentTimeMs = Utils.currentTimeMs();
+		if (currentTimeMs > lastTimeMs)
+		{
+			increment = 0;
+		}
+		long timeStamp = (currentTimeMs  & 0x0001FFFFFFFFFFL) << 22 ;
 		timeStamp = base & timeStamp;
 		id += timeStamp;
 		long serverNumberId = (long)serverNumberid();
 		id += (serverNumberId << 12);
 		int incr = increment++;
 		id += (long)incr;
-		lastTimeMs = Utils.currentTimeMs();
+		lastTimeMs = currentTimeMs;
 		return Long.valueOf(id).toString();
 	}
 
@@ -331,7 +364,7 @@ public class leafServer {
 		}
 		catch (Exception e)
 		{
-			LOG.error("Failed to start rpc server,exit",e);
+			LOG.error("Failed to start leaf server,exit",e);
 			server.stop();
 		}
 
