@@ -125,7 +125,7 @@ public class leafServer {
 
 	private void startHeartBeatThread()
 	{
-		Thread hearBeat = new Thread(new Runnable() {
+		Thread heartBeat = new Thread(new Runnable() {
 			private  final int interval = (Integer) conf.get(Config.LEAF_HEARTBEAT_INTERVAL);
 			@Override
 			public void run() {
@@ -148,9 +148,9 @@ public class leafServer {
 				}
 			}
 		});
-		hearBeat.setName("leaf heartbeat");
-		hearBeat.setDaemon(true);
-		hearBeat.start();
+		heartBeat.setName("leaf heartbeat");
+		heartBeat.setDaemon(true);
+		heartBeat.start();
 	}
 
 
