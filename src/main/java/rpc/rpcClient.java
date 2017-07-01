@@ -5,6 +5,7 @@ package rpc;
  */
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
+import org.apache.thrift.transport.TFramedTransport;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 import java.util.Map;
@@ -55,10 +56,30 @@ public class rpcClient {
 		return timestamp;
 	}
 
-	//for test
+	//client of TThreadPoolServer
 	public static void startClient(String ip ,int port ,int timeout) throws Exception
 	{
 		TTransport transport = new TSocket(ip,port,timeout);
+		TProtocol protocol = new TBinaryProtocol(transport);
+		leafrpc.Client client = new leafrpc.Client(protocol);
+		transport.open();
+
+		for(int i = 0; i< 1000000; i++)
+		{
+			String id = client.getID("");
+			chm.put(id,"");
+			if (i % 100000 == 0)
+			{
+				System.out.println(Thread.currentThread().getName() + " " + client.getID(""));
+			}
+			ai.incrementAndGet();
+		}
+		transport.close();
+	}
+	// client of TThreadedSelectorServer , TNonblockingServerSocket ,THsHaServer
+	public static void startClient2(String ip ,int port ,int timeout) throws Exception
+	{
+		TTransport transport = new TFramedTransport(new TSocket(ip,port,timeout));
 		TProtocol protocol = new TBinaryProtocol(transport);
 		leafrpc.Client client = new leafrpc.Client(protocol);
 		transport.open();
@@ -70,12 +91,11 @@ public class rpcClient {
 			{
 				System.out.println(Thread.currentThread().getName() + " " + client.getID(""));
 			}
-			//chm.put(client.getID(""),Thread.currentThread().getName());
-			//client.getID("");
 			//ai.incrementAndGet();
 		}
 		transport.close();
 	}
+
 	public static void main(String[] args) throws Exception
 	{
 		final CountDownLatch latch = new CountDownLatch(3);
@@ -127,6 +147,7 @@ public class rpcClient {
 		latch.await();
 		long total = Utils.currentTimeMs() - current;
 		System.out.println("spend " + total + " ms with " + 3000000 + " requests." );
+		System.out.println(chm.size());
 
 
 	}
