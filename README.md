@@ -34,6 +34,8 @@ One test client (machine of hadoop cluster) with 3 threads,each send 1000000 req
 
 Cost 300 seconds with absolutely correct Ids generated.
 
+About 1w/sec
+
 
 # Author
 weizhenyi
