@@ -7,7 +7,7 @@ Last Modified: 2017-06-28
 
 Leaf-snowflake is a distributed，monotonic increase long-type integer ID maker.
 
-Support nearly 1000+ leaf-snowflake servers to provide id services simultaneously。
+Support nearly 1000+ leaf-snowflake servers to provide id services simultaneously.
 
 Based on <http://tech.meituan.com/MT_Leaf.html> leaf-snowflake.
 
