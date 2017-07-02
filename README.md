@@ -5,7 +5,9 @@ Last Modified: 2017-06-28
     
 ## Introduction
 
-Leaf-snowflake is a distributed ID maker.
+Leaf-snowflake is a distributed，monotonic increase ID maker.
+
+Support nearly 1000+ leaf-snowflake servers to provide id services simultaneously。
 
 Based on <http://tech.meituan.com/MT_Leaf.html> leaf-snowflake.
 
