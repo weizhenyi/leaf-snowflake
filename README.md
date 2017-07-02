@@ -33,7 +33,7 @@ Throughput capacity test
 
 Cost 191 seconds with 200W absolutely  monotonic increase Ids generated.
 
-TPS: 1W+/sec
+TPS: 1W+/sec for a single machine
 
 
 # Author
