@@ -64,16 +64,13 @@ public class rpcClient {
 		leafrpc.Client client = new leafrpc.Client(protocol);
 		transport.open();
 
-		for(int i = 0; i< 1000000; i++)
+		int i = 0;
+		while(i < 2000000)
 		{
-			String id = client.getID("");
-			chm.put(id,"");
-			if (i % 100000 == 0)
-			{
-				System.out.println(Thread.currentThread().getName() + " " + client.getID(""));
-			}
-			ai.incrementAndGet();
+			 client.getID("");
+			 ++i;
 		}
+
 		transport.close();
 	}
 	// client of TThreadedSelectorServer , TNonblockingServerSocket ,THsHaServer
@@ -98,7 +95,7 @@ public class rpcClient {
 
 	public static void main(String[] args) throws Exception
 	{
-		final CountDownLatch latch = new CountDownLatch(3);
+		final CountDownLatch latch = new CountDownLatch(1);
 		long current = Utils.currentTimeMs();
 		Thread thread1 = new Thread(new Runnable() {
 			@Override
@@ -115,7 +112,7 @@ public class rpcClient {
 		thread1.setName("thread1");
 		thread1.start();
 
-		Thread thread2 = new Thread(new Runnable() {
+		/*Thread thread2 = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				try {
@@ -128,9 +125,9 @@ public class rpcClient {
 			}
 		});
 		thread2.setName("thread2");
-		thread2.start();
+		//thread2.start();*/
 
-		Thread thread3 = new Thread(new Runnable() {
+/*		Thread thread3 = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				try {
@@ -143,11 +140,12 @@ public class rpcClient {
 			}
 		});
 		thread3.setName("thread3");
-		thread3.start();
+		//thread3.start();*/
 		latch.await();
 		long total = Utils.currentTimeMs() - current;
-		System.out.println("spend " + total + " ms with " + 3000000 + " requests." );
-		System.out.println(chm.size());
+		System.out.println("spend " + total + " ms with " + 2000000 + " requests." );
+		//System.out.println(chm.size());
+
 
 
 	}

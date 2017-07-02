@@ -2,12 +2,12 @@ Leaf-snowflake
 =============
 
 Last Modified: 2017-06-28
+    
+## Introduction
 
+Leaf-snowflake is a distributed ID maker.
 
-Introduction
-============
-    Leaf-snowflake is a distributed ID maker.
-    Based on http://tech.meituan.com/MT_Leaf.html leaf-snowflake.
+Based on <http://tech.meituan.com/MT_Leaf.html> leaf-snowflake.
 
 Steps:
 ============
@@ -30,11 +30,10 @@ Commond line tools
 
 Throughput capacity test
 ============
-One test client (machine of hadoop cluster) with 3 threads,each send 1000000 requests to one of 3 test servers(machines of hadoop cluster)
 
-Cost 300 seconds with absolutely correct Ids generated.
+Cost 191 seconds with 200W absolutely  monotonic increase Ids generated.
 
-About 1w/sec
+TPS: 1W+/sec
 
 
 # Author
