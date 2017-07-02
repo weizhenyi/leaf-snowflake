@@ -15,7 +15,7 @@ Steps:
 2. Set ${LEAF_HOME} environment variable
 3. Config leaf.yaml at ${LEAF_HOME}/conf
 4. Exec ${LEAF_HOME}/bin/start.sh
-5. Communicate to the RPC server and get the uniqiue , monotonic increase ID like startClient() in /rpc/rpcClient.java shows,just for test!
+5. Communicate to the RPC server and get the unique , monotonic increase ID like startClient() in /rpc/rpcClient.java shows,just for test!
 
 Commond line tools
 ============
